@@ -1,12 +1,30 @@
 // Problem: Swap Nodes in Pairs
 // Link: https://leetcode.com/problems/swap-nodes-in-pairs/
-
+//
 // Approach (Dummy Node + Iteration):
-// 1. Use dummy node to simplify swapping head.
-// 2. Iterate while at least 2 nodes remain.
-// 3. Swap pairs using pointer re-linking.
-// Time Complexity: O(n)
-// Space Complexity: O(1)
+// 1. Create a dummy node pointing to head to simplify swapping at the head.
+// 2. Use two pointers: 
+//      - 'prev' → node before the current pair
+//      - 'cur'  → first node of the current pair
+// 3. While at least two nodes remain (cur != null && cur.next != null):
+//      - Store next pair start: npn = cur.next.next
+//      - Identify second node of the pair: second = cur.next
+//      - Swap pointers:
+//          • second.next = cur
+//          • cur.next = npn
+//          • prev.next = second
+//      - Move pointers forward for next iteration:
+//          • prev = cur
+//          • cur = npn
+// 4. Return dummy.next as new head.
+//
+// Why this works:
+// - Using a dummy node avoids special handling of head swaps.
+// - Iterative pointer manipulation swaps nodes in pairs efficiently.
+//
+// Time Complexity: O(n) (traverse each node once)
+// Space Complexity: O(1) (in-place, no extra data structures)
+
 
 
 class Solution {
