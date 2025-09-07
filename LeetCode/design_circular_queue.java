@@ -9,57 +9,47 @@
 // Space Complexity: O(k)
 
 
+class ListNode {
+    int val;
+    ListNode next;
+    public ListNode(int val, ListNode next) {
+        this.val = val;
+        this.next = next;
+    }
+}
 class MyCircularQueue {
-    int[] queue;
-    int size;
-    int front, rear;
-
+    int maxSize, size = 0;
+    ListNode head = null, tail = null;
     public MyCircularQueue(int k) {
-        size = k;
-        queue = new int[k];
-        front = rear = -1;
+        maxSize = k;
     }
-
-    public boolean enQueue(int value) {
-        if ((rear + 1) % size == front) return false; // Queue is full
-
-        if (rear == -1) {
-            front = rear = 0; // First element
-        } else {
-            rear = (rear + 1) % size; // Move to next slot
+    public boolean enQueue(int val) {
+        if (isFull()) return false;
+        ListNode newNode = new ListNode(val, null);
+        if (isEmpty()) head = tail = newNode;
+        else {
+            tail.next = newNode;
+            tail = tail.next;
         }
-
-        queue[rear] = value;
+        size++;
         return true;
     }
-
     public boolean deQueue() {
-        if (front == -1) return false; // Queue is empty
-
-        if (front == rear) {
-            front = rear = -1; // Only one element, now removed
-        } else {
-            front = (front + 1) % size;
-        }
-
+        if (isEmpty()) return false;
+        head = head.next;
+        size--;
         return true;
     }
-
     public int Front() {
-        if (front == -1) return -1;
-        return queue[front];
+        return isEmpty() ? -1 : head.val;
     }
-
     public int Rear() {
-        if (rear == -1) return -1;
-        return queue[rear];
+        return isEmpty() ? -1 : tail.val;
     }
-
     public boolean isEmpty() {
-        return front == -1;
+        return size == 0;
     }
-
     public boolean isFull() {
-        return (rear + 1) % size == front;
+        return size == maxSize;
     }
 }
