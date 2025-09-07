@@ -1,13 +1,25 @@
 // Problem: Validate Stack Sequences
 // Link: https://leetcode.com/problems/validate-stack-sequences/
+//
+// Approach (Simulation of Stack Operations):
+// 1. Initialize an empty stack.
+// 2. Use a pointer 'j' to track the position in the popped[] array.
+// 3. Iterate through each value in pushed[]:
+//      - Push the value onto the stack.
+//      - After each push, check if the top of the stack matches popped[j]:
+//          • While the stack is not empty and st.peek() == popped[j]:
+//              - Pop from the stack.
+//              - Increment j.
+// 4. At the end, if the stack is empty, all elements were popped in correct order → return true.
+//    Otherwise → return false.
+//
+// Why this works:
+// - Simulates exactly how a real stack behaves with push and pop operations.
+// - Ensures the sequence of pops matches the target popped[] array.
+//
+// Time Complexity: O(n) (each element pushed/popped at most once)
+// Space Complexity: O(n) (stack to store elements)
 
-// Approach:
-// 1. Simulate push operations for each element in pushed[].
-// 2. After each push, check if the top of stack matches popped[j].
-// 3. If yes, pop until they don’t match, then continue.
-// 4. At the end, if stack is empty, return true.
-// Time Complexity: O(n)
-// Space Complexity: O(n)
 
 
 class Solution {
